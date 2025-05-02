@@ -18,8 +18,37 @@ import { ReservationModule } from './reservation/reservation.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [BookingModule, RoomModule, HousekeepingModule, CouponModule, InventoryModule, RestaurantModule, BillingModule, AuthModule, SalaryModule, AdminModule, ConfirmationModule, FeedbackModule, ReservationModule, UserModule],
+  imports: [
+    BookingModule,
+    RoomModule,
+    HousekeepingModule,
+    CouponModule,
+    InventoryModule,
+    RestaurantModule,
+    BillingModule,
+    AuthModule,
+    SalaryModule,
+    AdminModule,
+    ConfirmationModule,
+    FeedbackModule,
+    ReservationModule,
+    UserModule,
+    TypeOrmModule.forRootAsync({
+      imports: [],
+      inject: [],
+      useFactory: () => ({
+        type: 'postgres',
+        synchronize: true,
+        port: 5432,
+        username: 'postgres',
+        password: 'root',
+        host: 'localhost',
+        autoLoadEntities: true,
+        database: 'hotel_management',
+      }),
+    }),
+  ],
   controllers: [AppController],
-  providers: [AppService], 
+  providers: [AppService],
 })
 export class AppModule {}
